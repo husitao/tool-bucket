@@ -7,37 +7,50 @@
     "url": "https://github.com/DetachHead/rebased/releases/download/1.1.6/rebased.exe",
     "hash": "3824CBAB72F134DBD7DA702D2977FE80F7B8B97A057F868F2E955108C1A78A0A",
 
+    "extract_dir": "$PLUGINSDIR",
+
+    "persist": [
+        "config",
+        "system"
+    ],
+
     "installer": {
         "script": [
-            "$persistDir=\"$persist_dir\\rebased\"",
+            "$vmoptions=Get-ChildItem \"$dir\\bin\" *.vmoptions | Select-Object -First 1",
 
-            "if (!(Test-Path $persistDir)) {",
-            "    New-Item -ItemType Directory $persistDir | Out-Null",
+            "if($vmoptions){",
+            "$content=Get-Content $vmoptions.FullName",
+
+            "$content=$content | Where-Object {",
+            "    $_ -notmatch '^-Didea\\.config\\.path=' -and",
+            "    $_ -notmatch '^-Didea\\.system\\.path=' -and",
+            "    $_ -notmatch '^-Didea\\.log\\.path=' -and",
+            "    $_ -notmatch '^-Didea\\.plugins\\.path='",
             "}",
 
-            "Start-Process \"$dir\\rebased.exe\" -ArgumentList '/S','/D='+$dir -Wait",
+            "$content += '-Didea.config.path='+($persist_dir+'\\config')",
+            "$content += '-Didea.system.path='+($persist_dir+'\\system')",
+            "$content += '-Didea.log.path='+($persist_dir+'\\system\\log')",
+            "$content += '-Didea.plugins.path='+($persist_dir+'\\config\\plugins')",
 
-            "$vmoptions=Get-ChildItem $dir -Filter '*.vmoptions' -Recurse | Select-Object -First 1",
-
-            "if ($vmoptions) {",
-
-            "Set-Content $vmoptions.FullName @(",
-            "'-Didea.config.path='+$persistDir+'\\config',",
-            "'-Didea.system.path='+$persistDir+'\\system',",
-            "'-Didea.log.path='+$persistDir+'\\system\\log',",
-            "'-Didea.plugins.path='+$persistDir+'\\config\\plugins'",
-            ")",
+            "Set-Content $vmoptions.FullName $content"
 
             "}"
         ]
     },
 
     "bin": [
-        "bin\\idea64.exe"
+        [
+            "bin\\idea64.exe",
+            "rebased"
+        ]
     ],
 
-    "persist": [
-        "rebased"
+    "shortcuts": [
+        [
+            "bin\\idea64.exe",
+            "Rebased"
+        ]
     ],
 
     "checkver": {
