@@ -16,7 +16,7 @@
 
     "installer": {
         "script": [
-            "$vmoptions=Get-ChildItem \"$dir\\bin\" *.vmoptions | Select-Object -First 1",
+            "$vmoptions=Get-ChildItem $dir -Recurse *.vmoptions | Select-Object -First 1",
 
             "if($vmoptions){",
                 "$content=Get-Content $vmoptions.FullName",
@@ -33,7 +33,7 @@
                 "$content += '-Didea.log.path='+($persist_dir+'\\system\\log')",
                 "$content += '-Didea.plugins.path='+($persist_dir+'\\config\\plugins')",
 
-                "Set-Content $vmoptions.FullName $content",
+                "Set-Content $vmoptions.FullName $content -Encoding UTF8",
             "}"
         ]
     },
@@ -53,7 +53,7 @@
     ],
 
     "checkver": {
-        "github": "https://github.com/DetachHead/rebased"
+        "github": "DetachHead/rebased"
     },
 
     "autoupdate": {
