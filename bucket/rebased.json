@@ -19,22 +19,21 @@
             "$vmoptions=Get-ChildItem \"$dir\\bin\" *.vmoptions | Select-Object -First 1",
 
             "if($vmoptions){",
-            "$content=Get-Content $vmoptions.FullName",
+                "$content=Get-Content $vmoptions.FullName",
 
-            "$content=$content | Where-Object {",
-            "    $_ -notmatch '^-Didea\\.config\\.path=' -and",
-            "    $_ -notmatch '^-Didea\\.system\\.path=' -and",
-            "    $_ -notmatch '^-Didea\\.log\\.path=' -and",
-            "    $_ -notmatch '^-Didea\\.plugins\\.path='",
-            "}",
+                "$content=$content | Where-Object {",
+                "    $_ -notmatch '^-Didea\\.config\\.path=' -and",
+                "    $_ -notmatch '^-Didea\\.system\\.path=' -and",
+                "    $_ -notmatch '^-Didea\\.log\\.path=' -and",
+                "    $_ -notmatch '^-Didea\\.plugins\\.path='",
+                "}",
 
-            "$content += '-Didea.config.path='+($persist_dir+'\\config')",
-            "$content += '-Didea.system.path='+($persist_dir+'\\system')",
-            "$content += '-Didea.log.path='+($persist_dir+'\\system\\log')",
-            "$content += '-Didea.plugins.path='+($persist_dir+'\\config\\plugins')",
+                "$content += '-Didea.config.path='+($persist_dir+'\\config')",
+                "$content += '-Didea.system.path='+($persist_dir+'\\system')",
+                "$content += '-Didea.log.path='+($persist_dir+'\\system\\log')",
+                "$content += '-Didea.plugins.path='+($persist_dir+'\\config\\plugins')",
 
-            "Set-Content $vmoptions.FullName $content"
-
+                "Set-Content $vmoptions.FullName $content",
             "}"
         ]
     },
