@@ -7,29 +7,30 @@
     "url": "https://github.com/DetachHead/rebased/releases/download/1.1.6/rebased.exe",
     "hash": "3824CBAB72F134DBD7DA702D2977FE80F7B8B97A057F868F2E955108C1A78A0A",
 
-    "pre_install": [
-        "$persistDir = \"$persist_dir\\rebased\"",
-        "if (!(Test-Path $persistDir)) {",
-        "    New-Item -ItemType Directory -Path $persistDir | Out-Null",
-        "}",
+    "installer": {
+        "script": [
+            "$persistDir=\"$persist_dir\\rebased\"",
 
-        "# 静默安装",
-        "Start-Process -FilePath \"$dir\\rebased.exe\" -ArgumentList '/S','/D='+$dir -Wait",
+            "if (!(Test-Path $persistDir)) {",
+            "    New-Item -ItemType Directory $persistDir | Out-Null",
+            "}",
 
-        "# 查找 vmoptions",
-        "$vmoptions = Get-ChildItem $dir -Filter '*.vmoptions' -Recurse | Select-Object -First 1",
+            "Start-Process \"$dir\\rebased.exe\" -ArgumentList '/S','/D='+$dir -Wait",
 
-        "if ($vmoptions) {",
+            "$vmoptions=Get-ChildItem $dir -Filter '*.vmoptions' -Recurse | Select-Object -First 1",
 
-        "Add-Content $vmoptions.FullName ''",
+            "if ($vmoptions) {",
 
-        "Add-Content $vmoptions.FullName '-Didea.config.path='\"$persistDir\\config\"",
-        "Add-Content $vmoptions.FullName '-Didea.system.path='\"$persistDir\\system\"",
-        "Add-Content $vmoptions.FullName '-Didea.log.path='\"$persistDir\\system\\log\"",
-        "Add-Content $vmoptions.FullName '-Didea.plugins.path='\"$persistDir\\config\\plugins\"",
+            "Set-Content $vmoptions.FullName @(",
+            "'-Didea.config.path='+$persistDir+'\\config',",
+            "'-Didea.system.path='+$persistDir+'\\system',",
+            "'-Didea.log.path='+$persistDir+'\\system\\log',",
+            "'-Didea.plugins.path='+$persistDir+'\\config\\plugins'",
+            ")",
 
-        "}"
-    ],
+            "}"
+        ]
+    },
 
     "bin": [
         "bin\\idea64.exe"
