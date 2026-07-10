@@ -1,13 +1,15 @@
 {
-    "version": "1.1.6",
+    "version": "1.1.7",
     "description": "Rebased",
     "homepage": "https://github.com/DetachHead/rebased",
     "license": "Unknown",
 
-    "url": "https://github.com/DetachHead/rebased/releases/download/1.1.6/rebased.exe",
-    "hash": "3824CBAB72F134DBD7DA702D2977FE80F7B8B97A057F868F2E955108C1A78A0A",
+    "url": "https://gh-proxy.org/https://github.com/DetachHead/rebased/releases/download/1.1.7/rebased.exe",
+    "hash": "E595FDDBFE1F49B25BE439E40599DC6BC450190EAB13D85DF7A3BE548537CBFA",
 
-    "extract_dir": "$PLUGINSDIR",
+    "pre_install": [
+        "Remove-Item \"$dir\\`$PLUGINSDIR\" -Recurse -Force -ErrorAction SilentlyContinue"
+    ],
 
     "persist": [
         "config",
@@ -16,7 +18,8 @@
 
     "installer": {
         "script": [
-            "$vmoptions=Get-ChildItem $dir -Recurse *.vmoptions | Select-Object -First 1",
+
+            "$vmoptions = Join-Path $dir 'bin\\rebased64.exe.vmoptions'",
 
             "if($vmoptions){",
                 "$content=Get-Content $vmoptions.FullName",
@@ -40,14 +43,14 @@
 
     "bin": [
         [
-            "bin\\idea64.exe",
+            "bin\\rebased64.exe",
             "rebased"
         ]
     ],
 
     "shortcuts": [
         [
-            "bin\\idea64.exe",
+            "bin\\rebased64.exe",
             "Rebased"
         ]
     ],
@@ -57,6 +60,6 @@
     },
 
     "autoupdate": {
-        "url": "https://github.com/DetachHead/rebased/releases/download/$version/rebased.exe"
+        "url": "https://gh-proxy.org/https://github.com/DetachHead/rebased/releases/download/$version/rebased.exe"
     }
 }
