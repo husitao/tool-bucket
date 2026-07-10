@@ -21,8 +21,8 @@
 
             "$vmoptions = Join-Path $dir 'bin\\rebased64.exe.vmoptions'",
 
-            "if($vmoptions){",
-                "$content=Get-Content $vmoptions.FullName",
+            "if (Test-Path $vmoptions) {",
+                "$content=Get-Content $vmoptions",
 
                 "$content=$content | Where-Object {",
                 "    $_ -notmatch '^-Didea\\.config\\.path=' -and",
