@@ -4,7 +4,7 @@
     "homepage": "https://github.com/DetachHead/rebased",
     "license": "Unknown",
 
-    "url": "https://gh-proxy.org/https://github.com/DetachHead/rebased/releases/download/1.1.7/rebased.exe",
+    "url": "https://gh-proxy.org/https://github.com/DetachHead/rebased/releases/download/1.1.7/rebased.exe#/dl.7z",
     "hash": "E595FDDBFE1F49B25BE439E40599DC6BC450190EAB13D85DF7A3BE548537CBFA",
 
     "pre_install": [
