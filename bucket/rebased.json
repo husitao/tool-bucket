@@ -1,11 +1,11 @@
 {
-    "version": "1.1.7",
+    "version": "1.1.8",
     "description": "Rebased",
     "homepage": "https://github.com/DetachHead/rebased",
     "license": "Unknown",
 
-    "url": "https://gh-proxy.org/https://github.com/DetachHead/rebased/releases/download/1.1.7/rebased.exe#/dl.7z",
-    "hash": "E595FDDBFE1F49B25BE439E40599DC6BC450190EAB13D85DF7A3BE548537CBFA",
+    "url": "https://gh-proxy.org/https://github.com/DetachHead/rebased/releases/download/1.1.8/rebased.exe#/dl.7z",
+    "hash": "3B18053AB7E4017338E4C37898D7BE4767DECC036B8057BBFF298E445B6BB978",
 
     "pre_install": [
         "Remove-Item \"$dir\\`$PLUGINSDIR\" -Recurse -Force -ErrorAction SilentlyContinue"
